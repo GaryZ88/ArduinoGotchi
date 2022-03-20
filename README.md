@@ -32,7 +32,7 @@ cd ArduinoGotchi
 ```
 
 ### Preparing a ROM data file
-- Put the **rom.bin** in the project folder, i.e. /Tamagotchi4Arduino/
+- Put the **rom.bin** in the project folder, i.e. /ArduinoGotchi/
 - Run the below commands, if success, it will generate a file named "**rom_12bit.h**" in the project folder
 ```
 cd ArduinoGotchi
