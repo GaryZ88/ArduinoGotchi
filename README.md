@@ -1,8 +1,8 @@
-# Tamagotchi4Arduino - A real Tamagotchi emulator for Arduino UNO
+# ArduinoGotchi - A real Tamagotchi emulator for Arduino UNO
 
 ## Synopsis
 
-**Tamagotchi4Arduino** is a real [Tamagotchi P1](https://tamagotchi.fandom.com/wiki/Tamagotchi_(1996_Pet)) emulator running in Arduino UNO hardware. The emulation core is based on [TamaLib](https://github.com/jcrona/tamalib) with intensive optimization to make it fit into UNO's hardware that only comes with 32K Flash 2K RAM.
+**ArduinoGotchi** is a real [Tamagotchi P1](https://tamagotchi.fandom.com/wiki/Tamagotchi_(1996_Pet)) emulator running in Arduino UNO hardware. The emulation core is based on [TamaLib](https://github.com/jcrona/tamalib) with intensive optimization to make it fit into UNO's hardware that only comes with 32K Flash 2K RAM.
 
 ![Tamagotchi P1 Actual Devices](../main/images/TamaP1_devices.jpg)
 
@@ -27,22 +27,22 @@
 **rom.bin** and place it in the project folder. Due to the copyright issue, Rom file is not provided, you have to find it yourself
 - Clone this repository from Github into your PC, run the following commands:
 ```
-git clone https://github.com/GaryZ88/Tamagotchi4Arduino
-cd Tamagotchi4Arduino
+git clone https://github.com/GaryZ88/ArduinoGotchi
+cd ArduinoGotchi
 ```
 
 ### Preparing a ROM data file
 - Put the **rom.bin** in the project folder, i.e. /Tamagotchi4Arduino/
 - Run the below commands, if success, it will generate a file named "**rom_12bit.h**" in the project folder
 ```
-cd Tamagotchi4Arduino
+cd ArduinoGotchi
 java TamaRomConvert rom.bin
 ```
 
 ### Compile and Run 
 - Compose the electronic parts, please follow the circult diagram below
 - Launch Arduino IDE
-- Open "Tamagotchi4Arduino.ino" in the project folder
+- Open "ArduinoGotchi.ino" in the project folder
 - Connect your Arduino UNO to PC/Mac with USB cable
 - Select your board
   - Main Menu -> Tools -> Board -> Arduino AVR Boards -> Arduino UNO
@@ -56,7 +56,7 @@ java TamaRomConvert rom.bin
 - To activate your pet, you have to configure the clock by pressing the middle button. Otherwise, your pet will not alive.
 - The emulator will save the game status for every 60 mintues.
 - The speed of the emulator is a bit slower than the actual Tamagotchi device, still, it is fun.
-- There are a few settings in the main program (**Tamagotchi4Arduino.ino**) that you can adjust to fit your need:
+- There are a few settings in the main program (**ArduinoGotchi.ino**) that you can adjust to fit your need:
 ```
 /***** U8g2 SSD1306 Library Setting *****/
 #define DISPLAY_I2C_ADDRESS 0x3C
@@ -86,4 +86,4 @@ java TamaRomConvert rom.bin
 ![Circuit Diagram](../main/images/circuit_diagram_01.png)
 
 ### License
-Tamagotchi4Arduino is distributed under the GPLv2 license. See the LICENSE file for more information.
+ArduinoGotchi is distributed under the GPLv2 license. See the LICENSE file for more information.
