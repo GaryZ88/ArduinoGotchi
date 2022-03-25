@@ -23,7 +23,7 @@
   - Push button x 3
   - Buzzer 
   - SSD1306 I2C OLED 128x64  
-- **Tamagotchi P1 ROM** - Tamagotchi4Arduino being an emulator, it requires a compatible Tamagotchi P1 ROM named 
+- **Tamagotchi P1 ROM** - ArduinoGotchi being an emulator, it requires a compatible Tamagotchi P1 ROM named 
 **rom.bin** and place it in the project folder. Due to the copyright issue, Rom file is not provided, you have to find it yourself
 - Clone this repository from Github into your PC, run the following commands:
 ```
