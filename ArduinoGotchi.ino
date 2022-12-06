@@ -128,6 +128,7 @@ static void hal_play_frequency(bool_t en) {
 
 static bool_t button4state = 0;
 
+static int Aon = 0, Bon = 0, Con = 0 ;
 static int hal_handler(void) {
 #ifdef ENABLE_SERIAL_DEBUG_INPUT 
   if (Serial.available() > 0) {
@@ -135,34 +136,41 @@ static int hal_handler(void) {
     Serial.println(incomingByte, DEC);
     if (incomingByte==48) {
       dumpStateToSerial();
-    } else if (incomingByte==49) {
+    } else if (incomingByte==49 && Aon==0) {
       hw_set_button(BTN_LEFT, BTN_STATE_PRESSED );
-    } else if (incomingByte==50) {
+      Aon=1;
+    } else if (incomingByte==49 && Aon==1) {
       hw_set_button(BTN_LEFT, BTN_STATE_RELEASED );
-    } else if (incomingByte==51) {
+      Aon=0;
+    } else if (incomingByte==50 && Bon==0) {
       hw_set_button(BTN_MIDDLE, BTN_STATE_PRESSED );
-    } else if (incomingByte==52) {
+      Bon=1;
+    } else if (incomingByte==50 && Bon==1) {
       hw_set_button(BTN_MIDDLE, BTN_STATE_RELEASED );
-    } else if (incomingByte==53) {
+      Bon=0;
+    } else if (incomingByte==51 && Con==0) {
       hw_set_button(BTN_RIGHT, BTN_STATE_PRESSED );
-    } else if (incomingByte==54) {
+      Con=1;
+    } else if (incomingByte==51 && Con==1) {
       hw_set_button(BTN_RIGHT, BTN_STATE_RELEASED );
-    }  
-  } 
-#else  
+      Con=0;
+    }
+  }
+  #endif
+
   if (digitalRead(2) == HIGH) {
     hw_set_button(BTN_LEFT, BTN_STATE_PRESSED );
-  } else {
+  } else if (Aon == 0) {
     hw_set_button(BTN_LEFT, BTN_STATE_RELEASED );
   }
   if (digitalRead(3) == HIGH) {
     hw_set_button(BTN_MIDDLE, BTN_STATE_PRESSED );
-  } else {
+  } else if (Bon == 0)  {
     hw_set_button(BTN_MIDDLE, BTN_STATE_RELEASED );
   }
   if (digitalRead(4) == HIGH) {
     hw_set_button(BTN_RIGHT, BTN_STATE_PRESSED );
-  } else {
+  } else if (Con == 0)  {
     hw_set_button(BTN_RIGHT, BTN_STATE_RELEASED );
   }
   #ifdef ENABLE_AUTO_SAVE_STATUS 
@@ -175,7 +183,6 @@ static int hal_handler(void) {
       button4state = 0;
     }
   #endif
-#endif  
   return 0;
 }
 
