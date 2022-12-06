@@ -128,49 +128,41 @@ static void hal_play_frequency(bool_t en) {
 
 static bool_t button4state = 0;
 
-static int Aon = 0, Bon = 0, Con = 0 ;
 static int hal_handler(void) {
 #ifdef ENABLE_SERIAL_DEBUG_INPUT 
   if (Serial.available() > 0) {
     int incomingByte = Serial.read();
     Serial.println(incomingByte, DEC);
-    if (incomingByte==48) {
+    if (incomingByte==48) {          // 0
       dumpStateToSerial();
-    } else if (incomingByte==49 && Aon==0) {
+    } else if (incomingByte==49) {  // 1
       hw_set_button(BTN_LEFT, BTN_STATE_PRESSED );
-      Aon=1;
-    } else if (incomingByte==49 && Aon==1) {
+    } else if (incomingByte==52) {  // 4 which is above 1 on a pad
       hw_set_button(BTN_LEFT, BTN_STATE_RELEASED );
-      Aon=0;
-    } else if (incomingByte==50 && Bon==0) {
+    } else if (incomingByte==50) {  // 2
       hw_set_button(BTN_MIDDLE, BTN_STATE_PRESSED );
-      Bon=1;
-    } else if (incomingByte==50 && Bon==1) {
+    } else if (incomingByte==53) {  // 5 which is above 2 on a pad
       hw_set_button(BTN_MIDDLE, BTN_STATE_RELEASED );
-      Bon=0;
-    } else if (incomingByte==51 && Con==0) {
+    } else if (incomingByte==51) {  // 3
       hw_set_button(BTN_RIGHT, BTN_STATE_PRESSED );
-      Con=1;
-    } else if (incomingByte==51 && Con==1) {
+    } else if (incomingByte==54) {  // 6 which is above 3 on a pad
       hw_set_button(BTN_RIGHT, BTN_STATE_RELEASED );
-      Con=0;
-    }
-  }
-  #endif
-
+    }  
+  } 
+#else  
   if (digitalRead(2) == HIGH) {
     hw_set_button(BTN_LEFT, BTN_STATE_PRESSED );
-  } else if (Aon == 0) {
+  } else {
     hw_set_button(BTN_LEFT, BTN_STATE_RELEASED );
   }
   if (digitalRead(3) == HIGH) {
     hw_set_button(BTN_MIDDLE, BTN_STATE_PRESSED );
-  } else if (Bon == 0)  {
+  } else {
     hw_set_button(BTN_MIDDLE, BTN_STATE_RELEASED );
   }
   if (digitalRead(4) == HIGH) {
     hw_set_button(BTN_RIGHT, BTN_STATE_PRESSED );
-  } else if (Con == 0)  {
+  } else {
     hw_set_button(BTN_RIGHT, BTN_STATE_RELEASED );
   }
   #ifdef ENABLE_AUTO_SAVE_STATUS 
@@ -183,6 +175,7 @@ static int hal_handler(void) {
       button4state = 0;
     }
   #endif
+#endif  
   return 0;
 }
 
