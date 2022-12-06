@@ -35,12 +35,12 @@
 /***** Tama Setting and Features *****/
 #define TAMA_DISPLAY_FRAMERATE  3   // 3 is optimal for Arduino UNO
 #define ENABLE_TAMA_SOUND
-#define ENABLE_AUTO_SAVE_STATUS
-#define AUTO_SAVE_MINUTES 60    // Auto save for every hour (to preserve EEPROM lifespan)
-#define ENABLE_LOAD_STATE_FROM_EEPROM 
-//#define ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START
+//#define ENABLE_AUTO_SAVE_STATUS
+//#define AUTO_SAVE_MINUTES 60    // Auto save for every hour (to preserve EEPROM lifespan)
+//#define ENABLE_LOAD_STATE_FROM_EEPROM 
+#define ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START
 //#define ENABLE_SERIAL_DEBUG_INPUT
-//#define ENABLE_LOAD_HARCODED_STATE_WHEN_START
+#define ENABLE_LOAD_HARCODED_STATE_WHEN_START
 /***************************/
 
 /***** Set display orientation, U8G2_MIRROR_VERTICAL is not supported *****/
@@ -190,12 +190,14 @@ static hal_t hal = {
   .handler = &hal_handler,
 };
 
+/*
 void drawTriangle(uint8_t x, uint8_t y) {
   //display.drawLine(x,y,x+6,y);
   display.drawLine(x+1,y+1,x+5,y+1);
   display.drawLine(x+2,y+2,x+4,y+2); 
   display.drawLine(x+3,y+3,x+3,y+3); 
 }
+*/
 
 void drawTamaRow(uint8_t tamaLCD_y, uint8_t ActualLCD_y, uint8_t thick) {
   uint8_t i;
