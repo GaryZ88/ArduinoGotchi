@@ -133,7 +133,9 @@ static int hal_handler(void) {
   if (Serial.available() > 0) {
     int incomingByte = Serial.read();
     Serial.println(incomingByte, DEC);
-    if (incomingByte==49) {
+    if (incomingByte==48) {
+      dumpStateToSerial();
+    } else if (incomingByte==49) {
       hw_set_button(BTN_LEFT, BTN_STATE_PRESSED );
     } else if (incomingByte==50) {
       hw_set_button(BTN_LEFT, BTN_STATE_RELEASED );
@@ -265,7 +267,6 @@ void displayTama() {
 #endif  
 }
 
-#ifdef ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START
 void dumpStateToSerial() {
   uint16_t i, count=0;
   char tmp[10];
@@ -296,7 +297,6 @@ void dumpStateToSerial() {
   }
   Serial.println("};");  */
 } 
-#endif
 
 #ifdef ENABLE_LOAD_HARCODED_STATE_WHEN_START
 void loadHardcodedState() {
