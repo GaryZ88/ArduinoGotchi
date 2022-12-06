@@ -39,7 +39,7 @@
 //#define AUTO_SAVE_MINUTES 60    // Auto save for every hour (to preserve EEPROM lifespan)
 //#define ENABLE_LOAD_STATE_FROM_EEPROM 
 #define ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START
-//#define ENABLE_SERIAL_DEBUG_INPUT
+#define ENABLE_SERIAL_DEBUG_INPUT
 #define ENABLE_LOAD_HARCODED_STATE_WHEN_START
 /***************************/
 
@@ -212,14 +212,12 @@ void drawTamaRow(uint8_t tamaLCD_y, uint8_t ActualLCD_y, uint8_t thick) {
 
 void drawTamaSelection(uint8_t y) {
   uint8_t i;
-  for(i=0;i<7;i++) {
-    if (icon_buffer[i]) drawTriangle(i*16+5,y);
-    display.drawXBMP(i*16+4,y+6,16,9,bitmaps+i*18);
+  for(i=0;i<8;i++) {
+    if (icon_buffer[i]) {
+      // drawTriangle(i*16+5,y);
+      display.drawXBMP(i*16+4,y+6,8,8,bitmaps+i*8);
+    }
   }
-  if (icon_buffer[7]) {
-    drawTriangle(7*16+5,y);
-    display.drawXBMP(7*16+4,y+6,16,9,bitmaps+7*18);
-  } 
 }
 
 void displayTama() {
