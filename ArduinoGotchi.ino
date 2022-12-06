@@ -38,8 +38,9 @@
 //#define ENABLE_AUTO_SAVE_STATUS
 //#define AUTO_SAVE_MINUTES 60    // Auto save for every hour (to preserve EEPROM lifespan)
 //#define ENABLE_LOAD_STATE_FROM_EEPROM 
-#define ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START
-#define ENABLE_SERIAL_DEBUG_INPUT
+//#define ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START
+#define ENABLE_SERIAL_DUMP
+//#define ENABLE_SERIAL_DEBUG_INPUT
 #define ENABLE_LOAD_HARCODED_STATE_WHEN_START
 /***************************/
 
@@ -129,13 +130,20 @@ static void hal_play_frequency(bool_t en) {
 static bool_t button4state = 0;
 
 static int hal_handler(void) {
-#ifdef ENABLE_SERIAL_DEBUG_INPUT 
+#ifdef ENABLE_SERIAL_DUMP 
   if (Serial.available() > 0) {
     int incomingByte = Serial.read();
     Serial.println(incomingByte, DEC);
     if (incomingByte==48) {          // 0
       dumpStateToSerial();
-    } else if (incomingByte==49) {  // 1
+    }
+  }
+#endif
+#ifdef ENABLE_SERIAL_DEBUG_INPUT 
+  if (Serial.available() > 0) {
+    int incomingByte = Serial.read();
+    Serial.println(incomingByte, DEC);
+    if (incomingByte==49) {  // 1
       hw_set_button(BTN_LEFT, BTN_STATE_PRESSED );
     } else if (incomingByte==52) {  // 4 which is above 1 on a pad
       hw_set_button(BTN_LEFT, BTN_STATE_RELEASED );
@@ -267,6 +275,7 @@ void displayTama() {
 #endif  
 }
 
+#if defined(ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START) || defined(ENABLE_SERIAL_DUMP)
 void dumpStateToSerial() {
   uint16_t i, count=0;
   char tmp[10];
@@ -297,6 +306,7 @@ void dumpStateToSerial() {
   }
   Serial.println("};");  */
 } 
+#endif
 
 #ifdef ENABLE_LOAD_HARCODED_STATE_WHEN_START
 void loadHardcodedState() {
