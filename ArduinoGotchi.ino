@@ -68,9 +68,7 @@ static bool_t matrix_buffer[LCD_HEIGHT][LCD_WIDTH/8] = {{0}};
 static byte runOnceBool = 0;
 static bool_t icon_buffer[ICON_NUM] = {0};
 static cpu_state_t cpuState;
-#ifdef AUTO_SAVE_STATUS
 static unsigned long lastSaveTimestamp = 0;
-#endif
 /************************************/
 
 static void hal_halt(void) {
